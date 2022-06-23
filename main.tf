@@ -9,16 +9,17 @@ terraform {
 
 provider "docker" {}
 
-resource "docker_image" "nginx" {
-  name         = "nginx:latest"
-  keep_locally = false
+resource "docker_image" "opsforqa" {
+  name         = "opsforqa:latest"
+  keep_locally = true
 }
 
-resource "docker_container" "nginx" {
-  image = docker_image.nginx.latest
-  name  = "tutorial"
+resource "docker_container" "opsforqa" {
+  image = docker_image.opsforqa.latest
+  name  = "terraform_learn"
+  command = ["go", "run", "./"]
   ports {
-    internal = 80
-    external = 8000
+    internal = 8080
+    external = 1234
   }
 }
